@@ -6,6 +6,8 @@ import Calendar from "react-github-contribution-calendar";
 import { useConfetti } from "../../hooks/useConfetti";
 import { Habbit, HabbitView } from "../../models/habbit";
 import { checkHabbit, deleteHabbit } from "../../services/storage";
+import { MenuItem } from "@mantine/core/lib/Menu/MenuItem/MenuItem";
+import { useNavigate } from "react-router-dom";
 
 var panelColors = ["#0d1117", "#39d353"];
 
@@ -48,6 +50,7 @@ export const HabbitCard = (view: HabbitCardProps) => {
 	} = useConfetti()
 	const client = useQueryClient()
 	const { classes } = useStyles();
+	const navigate = useNavigate();
 
 
 	const [checked, setChecked] = React.useState(view.isChecked);
@@ -91,9 +94,12 @@ export const HabbitCard = (view: HabbitCardProps) => {
 		}
 	})
 
+	
 
 
 
+
+	
 
 	return (
 		<Card withBorder={true} p="md"	>
@@ -132,6 +138,17 @@ export const HabbitCard = (view: HabbitCardProps) => {
 								}}>
 									Remove Habbit
 								</Menu.Item>
+								<Menu.Label>
+									Analytics
+									<Menu.Item
+										color="cyan"
+										onClick={() => navigate("/analytics", { state: view.habbit })}
+									>
+										Check Analytics
+									</Menu.Item>
+								</Menu.Label>
+
+
 							</Menu.Dropdown>
 						</Menu>
 					</Group>

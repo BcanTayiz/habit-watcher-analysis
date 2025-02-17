@@ -14,6 +14,7 @@ import { updateHabbit } from "../../services/storage";
 import { showNotification } from "@mantine/notifications";
 import { Habbit } from "../../models/habbit";
 
+
 interface UpdateHabitProps extends Habbit {
     onFinish: () => void;
 }
@@ -49,19 +50,59 @@ export function UpdaetHabit({ name, id, onFinish }: UpdateHabitProps) {
         },
     });
 
-    const suggestions = [
-        "Walk the dog 🐶",
-        "Drink water 💧",
-        "Read a book 📚",
-        "Take a nap 💤",
-        "Take a shower 🚿",
-        "Eat a healthy meal 🍎",
-    ]
+    const healthyHabits = {
+		physicalHealth: [
+			"🏃‍♂️ Exercise",
+			"🤸‍♀️ Stretching",
+			"😴 Sleep Hygiene",
+			"💧 Hydration",
+			"🥗 Healthy Eating",
+			"🌬️ Breathing Exercises"
+		],
+		mentalHealth: [
+			"🧘‍♀️ Mindfulness Meditation",
+			"📔 Gratitude Journaling",
+			"📝 Self-Reflection",
+			"💬 Positive Affirmations",
+			"👨‍👩‍👧‍👦 Social Connections"
+		],
+		productivity: [
+			"⏰ Time Blocking",
+			"🎯 Setting Goals",
+			"⚡ Prioritizing Tasks",
+			"📵 Limiting Screen Time",
+			"🧹 Decluttering"
+		],
+		emotionalHealth: [
+			"💪 Emotion Regulation",
+			"💖 Forgiveness",
+			"🗣️ Compassionate Self-Talk",
+			"🌿 Managing Stress"
+		],
+		personalDevelopment: [
+			"📚 Reading",
+			"🎓 Learning a New Skill",
+			"🔄 Consistency",
+			"🧠 Reflection and Feedback"
+		],
+		financialHealth: [
+			"💸 Budgeting",
+			"💰 Saving",
+			"📉 Debt Management"
+		],
+		environmentalHealth: [
+			"🌍 Eco-Friendly Practices",
+			"🌳 Spending Time Outdoors",
+			"🥕 Sustainable Eating"
+		]
+		};
+
 
     return (
         <Paper radius="md" p="xl" withBorder={true}>
             <Text size="lg" weight={500}>
                 {"So, what's your new habit name?"}
+               
             </Text>
             <form onSubmit={form.onSubmit((value) => update(value.name))}>
                 <Stack my="md">
@@ -84,12 +125,20 @@ export function UpdaetHabit({ name, id, onFinish }: UpdateHabitProps) {
                         }}
                     >
                         {
-                            suggestions.map((suggestion) => (
-                                <Chip key={suggestion} value={suggestion}>
-                                    {suggestion}
-                                </Chip>
-                            ))
-                        }
+							Object.entries(healthyHabits).map(([category, habits]) => (
+								<div key={category} className="habit-category">
+									<h2>{category.replace(/([A-Z])/g, " $1").trim()}</h2>
+									<Chip.Group>
+										{habits.map((habit, index) => (
+                                            
+											<Chip key={index} onClick={() => form.setFieldValue("name", habit)}>
+												{habit}
+											</Chip>
+										))}
+									</Chip.Group>
+								</div>
+							))
+						}
                     </Chip.Group>
                 </Stack>
 

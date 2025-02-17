@@ -6,6 +6,8 @@ import { Habbit } from "../../models/habbit";
 import React from "react";
 import { UpdaetHabit } from "./UpdateHabit";
 
+import Remainder from "../Common/Remainder";
+
 export const HabbitList = () => {
 	const fetchHabbit = async () => {
 		const result = await getAllhabbitsWithStats();
@@ -13,6 +15,8 @@ export const HabbitList = () => {
 	};
 
 	const { data, status } = useQuery(["fetchAllHabbits"], fetchHabbit);
+
+
 
 
 	const [habbit, setHabbit] = React.useState<Habbit | null>(null)
@@ -45,10 +49,10 @@ export const HabbitList = () => {
 						{
 						}
 						{
-							data.length > 0 ? data.map((habbit) => (<HabbitCard key={habbit.habbit.id} {...habbit}
+							data.length > 0 ? data.map((habbit) => (<><HabbitCard key={habbit.habbit.id} {...habbit}
 								setHabbit={setHabbit}
 								setIsOpen={setOpen}
-							/>))
+							/> <Remainder  remainder={habbit.id}/>    </>))
 								: <Text>
 									Oh no! You don't have any habbits yet. Create one now!
 								</Text>

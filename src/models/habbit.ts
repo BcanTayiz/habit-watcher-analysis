@@ -29,3 +29,8 @@ export interface HabbitView {
 	isChecked: boolean;
 	untilDate: Date;
 }
+
+
+export interface HabbitList {
+	habbit_list: Habbit[];
+}

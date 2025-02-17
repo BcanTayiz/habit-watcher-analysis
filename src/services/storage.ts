@@ -4,7 +4,10 @@ import type {
 	HabbitContributions,
 	HabbitStats,
 	HabbitView,
+	HabbitList,
 } from "../models/habbit";
+
+
 import moment from "moment";
 import Database from "tauri-plugin-sql-api";
 let db: Database;
@@ -12,6 +15,7 @@ const load = Database.load("sqlite:hw.db").then((instance) => {
 	db = instance;
 	return db;
 });
+
 
 // add a new habbit
 export async function createHabbit(name: string) {
@@ -145,4 +149,25 @@ export async function updateHabbit(id: number, name: string) {
 	await load;
 	await db.execute("UPDATE habbit SET name = ? WHERE id = ?", [name, id]);
 	return "Habit updated";
+}
+
+
+export async function remaindeCheck(id: number) {
+    await load;
+
+    let res:any = await db.select("SELECT created_at FROM habbit_log WHERE habbit_id = ?", [id]);
+
+    if (res.length < 2) {
+        console.warn("No record found for habbit_id:", id);
+        return false;
+    }
+
+    var now = moment();
+    let createdAt: Date = res.length[res.length - 1 ]["created_at"];
+    let diff = now.diff(createdAt, "days", true);
+	if (diff >= 10){
+		return true;
+	}else{
+		return false;
+	}
 }

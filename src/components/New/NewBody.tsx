@@ -14,6 +14,7 @@ import { createHabbit } from "../../services/storage";
 import { useNavigate } from "react-router-dom";
 import { showNotification } from "@mantine/notifications";
 
+
 export function NewBody() {
 	const client = useQueryClient();
 	const navigate = useNavigate();
@@ -26,6 +27,7 @@ export function NewBody() {
 	const onHabbitSubmit = async (name: string) => {
 		await createHabbit(name);
 	};
+
 
 	const { mutate: addHabbit, isLoading } = useMutation(onHabbitSubmit, {
 		onSuccess: () => {
@@ -46,17 +48,55 @@ export function NewBody() {
 		},
 	});
 
-	const suggestions = [
-		"Walk the dog 🐶",
-		"Drink water 💧",
-		"Read a book 📚",
-		"Go for a run 🏃‍♂️",
-		"Go to the gym 🏋️‍♂️",
-		"Meditate 🧘‍♂️",
-		"Take a nap 💤",
-		"Take a shower 🚿",
-		"Eat a healthy meal 🍎",
-	]
+
+	const healthyHabits = {
+		physicalHealth: [
+			"🏃‍♂️ Exercise",
+			"🤸‍♀️ Stretching",
+			"😴 Sleep Hygiene",
+			"💧 Hydration",
+			"🥗 Healthy Eating",
+			"🌬️ Breathing Exercises"
+		],
+		mentalHealth: [
+			"🧘‍♀️ Mindfulness Meditation",
+			"📔 Gratitude Journaling",
+			"📝 Self-Reflection",
+			"💬 Positive Affirmations",
+			"👨‍👩‍👧‍👦 Social Connections"
+		],
+		productivity: [
+			"⏰ Time Blocking",
+			"🎯 Setting Goals",
+			"⚡ Prioritizing Tasks",
+			"📵 Limiting Screen Time",
+			"🧹 Decluttering"
+		],
+		emotionalHealth: [
+			"💪 Emotion Regulation",
+			"💖 Forgiveness",
+			"🗣️ Compassionate Self-Talk",
+			"🌿 Managing Stress"
+		],
+		personalDevelopment: [
+			"📚 Reading",
+			"🎓 Learning a New Skill",
+			"🔄 Consistency",
+			"🧠 Reflection and Feedback"
+		],
+		financialHealth: [
+			"💸 Budgeting",
+			"💰 Saving",
+			"📉 Debt Management"
+		],
+		environmentalHealth: [
+			"🌍 Eco-Friendly Practices",
+			"🌳 Spending Time Outdoors",
+			"🥕 Sustainable Eating"
+		]
+		};
+
+	  
 
 	return (
 		<Paper radius="md" p="xl" withBorder={true}>
@@ -84,10 +124,17 @@ export function NewBody() {
 						}}
 					>
 						{
-							suggestions.map((suggestion) => (
-								<Chip key={suggestion} value={suggestion}>
-									{suggestion}
-								</Chip>
+							Object.entries(healthyHabits).map(([category, habits]) => (
+								<div key={category} className="habit-category">
+									<h2>{category.replace(/([A-Z])/g, " $1").trim()}</h2>
+									<Chip.Group>
+										{habits.map((habit, index) => (
+											<Chip key={index} onClick={() => form.setFieldValue("name", habit)}>
+												{habit}
+											</Chip>
+										))}
+									</Chip.Group>
+								</div>
 							))
 						}
 					</Chip.Group>

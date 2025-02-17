@@ -10,6 +10,10 @@ import { NewHabitPage } from "./new-habit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NotificationsProvider } from "@mantine/notifications";
 import { ConfettiProvider } from "./hooks/useConfetti";
+import Analytics from "./pages/Analytics";
+
+
+
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
 	{
@@ -21,6 +25,10 @@ const router = createBrowserRouter([
 				path: "/new",
 				element: <NewHabitPage />,
 			},
+			{
+				path: "/analytics",
+				element: <Analytics />,
+			}
 		],
 		errorElement: <ErrorPage />,
 	},
