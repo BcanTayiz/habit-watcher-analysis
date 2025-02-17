@@ -1,7 +1,7 @@
 import { Group, Card, Text, Checkbox, Menu, createStyles, Divider } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
+import React, {useState} from "react";
 import Calendar from "react-github-contribution-calendar";
 import { useConfetti } from "../../hooks/useConfetti";
 import { Habbit, HabbitView } from "../../models/habbit";
@@ -53,6 +53,8 @@ export const HabbitCard = (view: HabbitCardProps) => {
 	const navigate = useNavigate();
 
 
+	const [hovered, setHovered] = useState(false);
+
 	const [checked, setChecked] = React.useState(view.isChecked);
 
 
@@ -103,7 +105,18 @@ export const HabbitCard = (view: HabbitCardProps) => {
 	
 
 	return (
-		<Card withBorder={true} p="md"	>
+		<Card
+		withBorder
+		p={hovered ? "xl" : "md"} // Hover olunca padding büyür
+		onMouseEnter={() => setHovered(true)}
+		onMouseLeave={() => setHovered(false)}
+		sx={{
+			transition: "all 0.3s ease",
+			boxShadow: hovered ? "0px 10px 20px rgba(0,0,0,0.2)" : "none",
+			backgroundColor: hovered ? "rgb(100,100,100)" : "moz-initial"
+		}}
+		
+		>
 			<Group position="apart">
 				<Text weight="bold" size="lg"
 					strikethrough={checked}

@@ -49,10 +49,10 @@ export const HabbitList = () => {
 						{
 						}
 						{
-							data.length > 0 ? data.map((habbit) => (<><HabbitCard key={habbit.habbit.id} {...habbit}
+							data.length > 0 ? data.map((habbit) => (<div className=""><HabbitCard key={habbit.habbit.id} {...habbit}
 								setHabbit={setHabbit}
 								setIsOpen={setOpen}
-							/> <Remainder  remainder={habbit.id}/>    </>))
+							/> <Remainder  remainder={habbit.id}/>    </div>))
 								: <Text>
 									Oh no! You don't have any habbits yet. Create one now!
 								</Text>

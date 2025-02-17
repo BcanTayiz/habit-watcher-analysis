@@ -10,7 +10,6 @@ export default function Analytics() {
   
   if (!habbit) {
     return <div><p>No habit data received.</p><BackBtn/></div>;
-    
   }
 
   let now = moment();
