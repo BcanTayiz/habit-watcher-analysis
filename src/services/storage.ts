@@ -163,7 +163,8 @@ export async function remaindeCheck(id: number) {
     }
 
     var now = moment();
-    let createdAt: Date = res.length[res.length - 1 ]["created_at"];
+	console.log(res)
+    let createdAt: Date = res[res.length - 1 ]["created_at"];
     let diff = now.diff(createdAt, "days", true);
 	if (diff >= 10){
 		return true;

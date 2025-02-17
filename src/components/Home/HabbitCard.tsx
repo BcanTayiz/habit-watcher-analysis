@@ -99,6 +99,7 @@ export const HabbitCard = (view: HabbitCardProps) => {
 
 
 
+
 	
 
 	return (

@@ -4,23 +4,25 @@ import moment from "moment";
 
 export default function Analytics() {
   const location = useLocation();
-  const habit = location.state; // Receiving the habit object
+  const habbit = location.state; // Receiving the habit object
 
-  if (!habit) {
+
+  
+  if (!habbit) {
     return <div><p>No habit data received.</p><BackBtn/></div>;
     
   }
 
   let now = moment();
-  let diff = now.diff(habit.created_at, "days", true);
+  let diff = now.diff(habbit.created_at, "days", true);
 
-  console.log(habit)
+  console.log(habbit)
   return (
     <div>
       <h1>Analytics Page</h1>
-      <p>Habit Name: {habit.name}</p>
-      <p>Completed: {habit.completed ? "✅ Yes" : "❌ No"}</p>
-      <p>Created_at: {habit.created_at}</p>
+      <p>Habit Name: {habbit.name}</p>
+      <p>Completed: {habbit.completed ? "✅ Yes" : "❌ No"}</p>
+      <p>Created_at: {habbit.created_at}</p>
       <p>days passed: {diff.toFixed(2)} days passed</p>
       <BackBtn/>
     </div>
